@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
+                        http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+
+	<portlet>
+		<portlet-name>proto-portlet-angular</portlet-name>
+		<display-name xml:lang="fr">proto-portlet-angular</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>classpath:properties/portletContext.xml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+		</supports>
+		<supported-locale>fr</supported-locale>
+		<supported-locale>en</supported-locale>
+		<portlet-info>
+			<title>proto-portlet-angular</title>
+			<short-title>proto-portlet-angular</short-title>
+			<keywords>proto-portlet-angular</keywords>
+		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>context</name>
+				<value>default</value>
+			</preference>
+		</portlet-preferences>
+	</portlet>
+	<user-attribute>
+		<name>uid</name>
+	</user-attribute>
+</portlet-app>
