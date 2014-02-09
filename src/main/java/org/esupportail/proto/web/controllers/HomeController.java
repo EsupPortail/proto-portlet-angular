@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import javax.annotation.Resource;
 import javax.portlet.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -55,7 +57,8 @@ public class HomeController {
         MappingJacksonJsonView view = new MappingJacksonJsonView();
         Locale locale = request.getLocale();
         view.addStaticAttribute(MESSAGES, i18nService.getStrings(locale));
-        view.addStaticAttribute("uid", request.getPreferences().getValue("uid", "uid not found !"));
+        view.addStaticAttribute("pref1", request.getPreferences().getValue("pref1", "pref1 not found !"));
+        view.addStaticAttribute("uid", request.getAttribute("uid"));
         view.addStaticAttribute("portletMode", request.getPortletMode().toString());
         view.addStaticAttribute("windowState", request.getWindowState().toString());
         return view;
@@ -98,20 +101,20 @@ public class HomeController {
         RequestContextHolder.getRequestAttributes().setAttribute(name, value, PortletSession.PORTLET_SCOPE);
     }
 
-//    /**
-//     * action : toggle item from read to unread and unread to read.
-//     *
-//     * @param catID Category ID
-//     * @param srcID Source ID
-//     * @param itemID Item ID
-//     * @param isRead is source read ?
-//     */
-//    @ResourceMapping(value = "toggleItemReadState")
-//    public void toggleItemReadState(
-//            @RequestParam(required = true, value = "p1") String catID,
-//            @RequestParam(required = true, value = "p2") String srcID,
-//            @RequestParam(required = true, value = "p3") String itemID,
-//            @RequestParam(required = true, value = "p4") boolean isRead) {
-//    }
+    @ResourceMapping(value = "getDate")
+    public View toggleItemReadState(
+            @RequestParam(required = true, value = "p1") boolean isWithHour) {
+        MappingJacksonJsonView view = new MappingJacksonJsonView();
+        Date date = new Date();
+        String ret;
+        if (isWithHour) {
+            ret = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+        }
+        else {
+            ret = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        }
+        view.addStaticAttribute("date", ret);
+        return view;
+    }
 
 }

@@ -5,16 +5,17 @@
         <form>
             <fieldset>
                 <legend>portlet infos</legend>
+                <p>pref1 : {{pref1}}</p>
                 <p>uid : {{uid}}</p>
                 <p>portletMode : {{portletMode}}</p>
                 <p>windowState : {{windowState}}</p>
             </fieldset>
-            <fieldset>
+            <fieldset ng-hide="isMinimized()">
                 <legend>Ajax</legend>
                 <div>
-                    <label>URL :</label>
-                    <input type="text" ng-model="url">
-                    <input type="button" value="OK" ng-click="getContent()">
+                    <label>Action :</label>
+                    <input type="button" value="date" ng-click="getContent(false)">
+                    <input type="button" value="date and time" ng-click="getContent(true)">
                 </div>
                 <div>
                     <label>Return :</label>

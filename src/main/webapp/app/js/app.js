@@ -2,7 +2,7 @@ proto = function(appName, appHomePath, resourceURL) {
     var project = angular.module(appName, []);
 
     //config
-    project.config(['$routeProvider', function($routeProvider) {
+    project.config(function($routeProvider, $httpProvider) {
         $routeProvider.
                 when('/', {
             controller: 'homeCtrl',
@@ -11,7 +11,8 @@ proto = function(appName, appHomePath, resourceURL) {
                 otherwise(
                 {redirectTo: '/'}
         );
-    }]);
+        $httpProvider.defaults.withCredentials = true;
+    });
 
     //Home Controller
     project.controller('homeCtrl', function($scope, $http) {
@@ -21,14 +22,23 @@ proto = function(appName, appHomePath, resourceURL) {
             success(function (data) {
                 //i18n messages
                 $scope.msgs = data.messages;
+                $scope.pref1 = data.pref1;
                 $scope.uid = data.uid;
                 $scope.portletMode = data.portletMode;
                 $scope.windowState = data.windowState;
             });
 
-        $scope.getContent = function() {
-            $scope.content = $scope.url ;
-        }
+        $scope.getContent = function(p1) {
+            $http({method: 'GET', url: url(resourceURL, "getDate", p1)}).
+                success(function (data) {
+                    $scope.content = data.date;
+                });
+        };
+
+        $scope.isMinimized = function() {
+            return ($scope.windowState == "minimized");
+        };
+
     });
 };
 

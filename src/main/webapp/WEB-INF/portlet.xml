@@ -27,8 +27,8 @@
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
-				<name>context</name>
-				<value>default</value>
+				<name>pref1</name>
+				<value>val1</value>
 			</preference>
 		</portlet-preferences>
 	</portlet>
