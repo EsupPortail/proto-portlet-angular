@@ -1,5 +1,5 @@
 proto = function(appName, appHomePath, resourceURL) {
-    var project = angular.module(appName, []);
+    var project = angular.module(appName, ['ngRoute']);
 
     //config
     project.config(function($routeProvider, $httpProvider) {
