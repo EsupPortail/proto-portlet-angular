@@ -1,0 +1,29 @@
+<resources xmlns="http://www.jasig.org/uportal/web/skin"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jasig.org/uportal/web/skin
+           https://source.jasig.org/schemas/resource-server/skin-configuration/skin-configuration-v1.2.xsd">
+
+<!--
+    <css>css/ebottin.css</css>
+    <css>js/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.min.css</css>
+    <css>css/bootstrap-theme.min.css</css>
+    <css>css/bootstrap.min.css</css>
+
+    <js included="plain" resource="true">/rs/jquery/1.9.1/jquery-1.9.1.js</js>
+    <js included="aggregated" resource="true">/rs/jquery/1.9.1/jquery-1.9.1.min.js</js>
+
+    <js>js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js</js>
+
+    <js>js/angular.min.js</js>
+    <js>app/js/app.js</js>
+    -->
+
+    <css resource="false">rs/bootstrapLR/3.0.1/bootstrap.dev.3.0.1.modified.v4.css</css>
+    <css resource="true">/rs/bootstrap/3.0.0/css/bootstrap-theme-3.0.0.min.css</css>
+
+    <js resource="true">/rs/jquery/1.9.1/jquery-1.9.1.min.js</js>
+    <js resource="true">/rs/bootstrap/3.0.0/js/bootstrap-3.0.0.min.js</js>
+    <js resource="false">rs/angular/1.0.6/angular.min.js</js>
+    <js resource="false">app/js/app.js</js>
+
+</resources>

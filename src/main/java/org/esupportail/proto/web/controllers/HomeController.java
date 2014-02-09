@@ -2,7 +2,7 @@ package org.esupportail.proto.web.controllers;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.esupportail.commons.services.i18n.I18nService;
+import org.esupportail.commons.i18n.I18nService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +15,12 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import javax.annotation.Resource;
 import javax.portlet.*;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("VIEW")
 public class HomeController {
 
-    final String TREE_VISIBLE = "treeVisible";
-    final String CHANGE_ITEM_DISPLAY_MODE = "changeItemDisplayMode";
-    final String AVAILABLE_ITEM_DISPLAY_MODE = "availableItemDisplayModes";
     /**
      * Log instance.
      */
@@ -31,14 +29,37 @@ public class HomeController {
     protected static final String MESSAGES = "messages";
     final String STATICRESOURCESPATH = "resourcesPath";
     final String DYNAMICRESOURCESPATTERN = "dynamicResourcesPattern";
-    final String GUEST_MODE = "guestMode";
-    final String CONTEXT = "context";
 
     /**
      * The i18nService
      */
     @Resource(name = "i18nService")
     protected I18nService i18nService;
+
+    /**
+     * render home page
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RenderMapping
+    public String goHome(RenderRequest request, RenderResponse response, ModelMap model) {
+        model = bindInitialModel(model, response, request);
+        return "home";
+    }
+
+    @ResourceMapping(value = "getJSON")
+    public View getJSON(ResourceRequest request, ResourceResponse response) {
+        MappingJacksonJsonView view = new MappingJacksonJsonView();
+        Locale locale = request.getLocale();
+        view.addStaticAttribute(MESSAGES, i18nService.getStrings(locale));
+        view.addStaticAttribute("uid", request.getPreferences().getValue("uid", "uid not found !"));
+        view.addStaticAttribute("portletMode", request.getPortletMode().toString());
+        view.addStaticAttribute("windowState", request.getWindowState().toString());
+        return view;
+    }
 
     /**
      * Add ressourceURL to spring MVC model
@@ -77,44 +98,20 @@ public class HomeController {
         RequestContextHolder.getRequestAttributes().setAttribute(name, value, PortletSession.PORTLET_SCOPE);
     }
 
-    /**
-     * render home page
-     *
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RenderMapping
-    public String goHome(RenderRequest request, RenderResponse response, ModelMap model) {
-        model = bindInitialModel(model, response, request);
-        return "home";
-    }
-
-    @ResourceMapping(value = "getJSON")
-    public View getJSON(ResourceRequest request, ResourceResponse response) {
-        MappingJacksonJsonView view = new MappingJacksonJsonView();
-//        view.addStaticAttribute(CONTEXT, getContext());
-//        view.addStaticAttribute(GUEST_MODE, isGuestMode());
-//        Locale locale = request.getLocale();
-//        view.addStaticAttribute(MESSAGES, i18nService.getStrings(locale));
-        return view;
-    }
-
-    /**
-     * action : toggle item from read to unread and unread to read.
-     *
-     * @param catID Category ID
-     * @param srcID Source ID
-     * @param itemID Item ID
-     * @param isRead is source read ?
-     */
-    @ResourceMapping(value = "toggleItemReadState")
-    public void toggleItemReadState(
-            @RequestParam(required = true, value = "p1") String catID,
-            @RequestParam(required = true, value = "p2") String srcID,
-            @RequestParam(required = true, value = "p3") String itemID,
-            @RequestParam(required = true, value = "p4") boolean isRead) {
-    }
+//    /**
+//     * action : toggle item from read to unread and unread to read.
+//     *
+//     * @param catID Category ID
+//     * @param srcID Source ID
+//     * @param itemID Item ID
+//     * @param isRead is source read ?
+//     */
+//    @ResourceMapping(value = "toggleItemReadState")
+//    public void toggleItemReadState(
+//            @RequestParam(required = true, value = "p1") String catID,
+//            @RequestParam(required = true, value = "p2") String srcID,
+//            @RequestParam(required = true, value = "p3") String itemID,
+//            @RequestParam(required = true, value = "p4") boolean isRead) {
+//    }
 
 }
